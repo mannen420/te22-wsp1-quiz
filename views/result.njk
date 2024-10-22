@@ -1,0 +1,18 @@
+{% extends "layout.njk" %}
+{% block content %}
+<main class="container">
+  <h1>{{message}}</h1>
+    
+
+    
+    <ul>
+    {% for item in result %}
+      <li>{{item.question}}   du svarade: {{item.answer}}  svaret är:{{ item.correct}} </li>
+    {% else %}
+      <li>This would display if the 'item' collection were empty</li>
+    {% endfor %}
+    </ul>
+
+    <p><a href="/quiz/">Gör quizzet igen</a></p>
+</main>
+{% endblock %}

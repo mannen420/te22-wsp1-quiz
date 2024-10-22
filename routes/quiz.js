@@ -19,7 +19,21 @@ const questions = [
     text: "Hur många ben har en gnu?",
     answers: ["två", "sju", "tre", "fyra"],
     correctAnswer: "fyra",
+    
+  },
+  {
+    id: "q3",
+    text: "vilken färg är röd",
+    answers: ["blå", "grön", "röd", "fyrkant"],
+    correctAnswer: "röd",
+  },
+  {
+    id: "q4",
+    text: "01110110 01101001 01101100 01101011 01100101 01101110 00100000 01100010 01101111 01101011 01110011 01110100 01100001 01110110 00100000 11000011 10100100 01110010 00100000 01000101",
+    answers: ["01101001", "01101100", "01101011", "01000101"],
+    correctAnswer: "01000101",
   }
+
 ]
 
 router.get("/questions", (req, res) => {
@@ -31,14 +45,25 @@ router.get("/questions", (req, res) => {
 
 router.post("/end", (req, res) => {
   const answers = req.body
-  console.log(answers)  
-  questions.forEach(question => {
+  console.log(answers)
+  const result = questions.map(question => {
     const answer = answers[question.id]
-    if (answer == question.correctAnswer) {
-      console.log("Du har svarat rätt på fråga : ", question.id)
+    return {
+      question: question.text,
+      answer,
+      correct: answer == question.correctAnswer
     }
   })
-  res.json(answers)
+  // questions.forEach(question => {
+  //   const answer = answers[question.id]
+  //   if (answer == question.correctAnswer) {
+  //     console.log("Du har svarat rätt på fråga : ", question.id)
+  //   }
+  // })
+  res.render("result.njk", {
+    message: "Ditt resultat",
+    result
+  })
 })
 // rad 4 , 18, 19 i server.js
 
